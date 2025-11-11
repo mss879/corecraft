@@ -1,0 +1,88 @@
+import type { ReactNode, SVGProps } from 'react';
+import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
+
+export type NavLink = {
+  label: string;
+  href: string;
+};
+
+export type SocialLink = {
+  label: string;
+  href: string;
+  icon: ReactNode;
+};
+
+export type CompanyLink = {
+  label: string;
+  href: string;
+};
+
+export type LegalLink = {
+  label: string;
+  href: string;
+};
+
+const TikTokIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    viewBox="0 0 24 24"
+    role="img"
+    focusable="false"
+    aria-hidden="true"
+    {...props}
+  >
+    <path d="M15.75 3h3.04a5.34 5.34 0 0 0 5.21 5.36v3.07a8.29 8.29 0 0 1-5.03-1.63v7.02a6.12 6.12 0 1 1-6.12-6.12h1.83v3.09h-1.83a3.03 3.03 0 1 0 3.03 3.03V3Z" fill="currentColor" />
+  </svg>
+);
+
+export const primaryLinks: NavLink[] = [
+  { label: 'ABOUT', href: '#about' },
+  { label: 'PORTFOLIO', href: '/projects' },
+  { label: 'CONTACT', href: '/contact' },
+];
+
+export const menuLinks: NavLink[] = [
+  { label: 'HOME', href: '/' },
+  { label: 'SERVICES', href: '/services' },
+];
+
+export const socialLinks: SocialLink[] = [
+  {
+    label: 'Instagram',
+    href: 'https://instagram.com',
+    icon: <Instagram aria-hidden="true" focusable="false" />,
+  },
+  {
+    label: 'Facebook',
+    href: 'https://facebook.com',
+    icon: <Facebook aria-hidden="true" focusable="false" />,
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/company/velox-themes/',
+    icon: <Linkedin aria-hidden="true" focusable="false" />,
+  },
+  {
+    label: 'TikTok',
+    href: 'https://www.tiktok.com/@corecraft',
+    icon: <TikTokIcon aria-hidden="true" focusable="false" />,
+  },
+  {
+    label: 'X/Twitter',
+    href: 'https://x.com/VeloxThemes',
+    icon: <Twitter aria-hidden="true" focusable="false" />,
+  },
+];
+
+export const companyLinks: CompanyLink[] = [
+  { label: 'Home', href: 'https://mandala.framer.website/?utm_source=framer' },
+  { label: 'Projects', href: 'https://mandala.framer.website/projects?utm_source=framer' },
+  { label: 'About Us', href: 'https://mandala.framer.website/about-us?utm_source=framer' },
+  { label: 'Blog', href: 'https://mandala.framer.website/blog?utm_source=framer' },
+  { label: 'Contact Us', href: 'https://mandala.framer.website/contact?utm_source=framer' },
+  { label: '404', href: 'https://mandala.framer.website/404?utm_source=framer' },
+];
+
+export const legalLinks: LegalLink[] = [
+  { label: 'Privacy Policy', href: 'https://mandala.framer.website/legal/privacy-policy?utm_source=framer' },
+  { label: 'Terms of Service', href: 'https://mandala.framer.website/legal/terms-of-service?utm_source=framer' },
+];

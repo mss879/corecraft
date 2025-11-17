@@ -86,6 +86,14 @@ export function SiteFooter({ logoHref = '/' }: { logoHref?: string }) {
                     </a>
                   </li>
                 ))}
+                <li>
+                  <Link
+                    href="/admin"
+                    className="transition-colors duration-300 hover:text-white"
+                  >
+                    Admin
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>

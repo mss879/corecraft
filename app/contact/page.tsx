@@ -1,13 +1,11 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { ArrowRight } from 'lucide-react';
 import { Libre_Caslon_Text } from 'next/font/google';
 
 import { ContactFaq } from '@/components/contact/faq-section';
+import { ContactForm } from '@/components/contact/contact-form';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { SiteNav } from '@/components/layout/site-nav';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 
 const libreCaslon = Libre_Caslon_Text({ subsets: ['latin'], weight: ['400', '700'] });
 
@@ -79,95 +77,7 @@ export default function ContactPage() {
           </section>
 
           <section className="rounded-[32px] border border-black/5 bg-white p-8 text-[#101010] shadow-[0px_26px_60px_-35px_rgba(15,15,15,0.25)] backdrop-blur-sm sm:p-10">
-            <form className="space-y-6" action="#" method="post">
-              <div className="grid gap-6 md:grid-cols-2">
-                <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-semibold uppercase tracking-[0.08em] text-[#111]">
-                    Your name
-                  </label>
-                  <Input
-                    id="name"
-                    name="name"
-                    type="text"
-                    required
-                    placeholder="Enter full name"
-                    className="h-14 rounded-xl border-[#ececec] bg-[#fafafa] text-base placeholder:text-[#a0a0a0] focus-visible:ring-[#ff502e]"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label htmlFor="company" className="text-sm font-semibold uppercase tracking-[0.08em] text-[#111]">
-                    Company name
-                  </label>
-                  <Input
-                    id="company"
-                    name="company"
-                    type="text"
-                    required
-                    placeholder="Enter company name"
-                    className="h-14 rounded-xl border-[#ececec] bg-[#fafafa] text-base placeholder:text-[#a0a0a0] focus-visible:ring-[#ff502e]"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-semibold uppercase tracking-[0.08em] text-[#111]">
-                  Email
-                </label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  placeholder="Enter email address"
-                  className="h-14 rounded-xl border-[#ececec] bg-[#fafafa] text-base placeholder:text-[#a0a0a0] focus-visible:ring-[#ff502e]"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-semibold uppercase tracking-[0.08em] text-[#111]">
-                  Message
-                </label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  required
-                  placeholder="Tell us about your vision"
-                  className="min-h-[180px] rounded-2xl border-[#ececec] bg-[#fafafa] pb-4 pt-3 text-base placeholder:text-[#a0a0a0] focus-visible:ring-[#ff502e]"
-                />
-              </div>
-
-              <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-sm leading-relaxed text-[#7a7a7a]">
-                  By submitting this form you agree to our{' '}
-                  <a
-                    href="https://mandala.framer.website/legal/terms-of-service?utm_source=framer"
-                    className="font-medium text-black underline underline-offset-4"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Terms of Use
-                  </a>{' '}
-                  and{' '}
-                  <a
-                    href="https://mandala.framer.website/legal/privacy-policy?utm_source=framer"
-                    className="font-medium text-black underline underline-offset-4"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Privacy Policy
-                  </a>
-                </p>
-                <button
-                  type="submit"
-                  className="group inline-flex items-center justify-center gap-3 rounded-full border border-[#dcdcdc] px-7 py-3 text-base font-semibold text-black transition-colors duration-300 hover:border-[#ff502e] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff502e]/70"
-                >
-                  Submit
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#ff502e] text-black transition-transform duration-300 group-hover:translate-x-1">
-                    <ArrowRight className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                </button>
-              </div>
-            </form>
+            <ContactForm />
           </section>
         </div>
       </main>

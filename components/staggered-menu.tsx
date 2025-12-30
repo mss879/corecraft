@@ -420,22 +420,8 @@ const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             type="button"
           >
             <span
-              ref={textWrapRef}
-              className="sm-toggle-textWrap relative inline-block h-[1em] overflow-hidden whitespace-nowrap"
-              aria-hidden="true"
-            >
-              <span ref={textInnerRef} className="sm-toggle-textInner flex flex-col leading-none">
-                {textLines.map((line, idx) => (
-                  <span className="sm-toggle-line block h-[1em] leading-none" key={`${line}-${idx}`}>
-                    {line}
-                  </span>
-                ))}
-              </span>
-            </span>
-
-            <span
               ref={iconRef}
-              className="sm-icon relative inline-flex h-[14px] w-[14px] shrink-0 items-center justify-center"
+              className="sm-icon relative hidden md:inline-flex h-[14px] w-[14px] shrink-0 items-center justify-center md:order-2"
               aria-hidden="true"
             >
               <span
@@ -446,6 +432,20 @@ const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
                 ref={plusVRef}
                 className="sm-icon-line sm-icon-line-v absolute left-1/2 top-1/2 h-[2px] w-full rounded-[2px] bg-current"
               />
+            </span>
+
+            <span
+              ref={textWrapRef}
+              className="sm-toggle-textWrap relative inline-block h-[1em] overflow-hidden whitespace-nowrap md:order-1"
+              aria-hidden="true"
+            >
+              <span ref={textInnerRef} className="sm-toggle-textInner flex flex-col leading-none">
+                {textLines.map((line, idx) => (
+                  <span className="sm-toggle-line block h-[1em] leading-none" key={`${line}-${idx}`}>
+                    {line}
+                  </span>
+                ))}
+              </span>
             </span>
           </button>
         </header>
@@ -527,9 +527,14 @@ const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 1.75rem 2rem;
+  padding: 1.75rem 0.5rem;
   pointer-events: none;
   z-index: 90;
+}
+@media (min-width: 768px) {
+  .sm-scope .staggered-menu-header {
+    padding: 1.75rem 2rem;
+  }
 }
 .sm-scope .sm-toggle {
   font-size: 1.4rem;

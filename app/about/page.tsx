@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Libre_Caslon_Text } from 'next/font/google';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
@@ -11,25 +10,32 @@ import { cn } from '@/lib/utils';
 
 const libreCaslon = Libre_Caslon_Text({ subsets: ['latin'], weight: ['400', '700'] });
 
-const accent = '#ff502e';
-
 export default function AboutPage() {
+  const backgroundVideoAttributes = {
+    src: 'https://framerusercontent.com/assets/yRnijo7PDqWkI1jNm8VMsqdm4.mp4',
+    loop: true,
+    muted: true,
+    playsInline: true,
+    autoPlay: true,
+    preload: 'metadata' as const,
+    controls: false,
+    disablePictureInPicture: true,
+  };
+
   return (
     <>
       <SiteNav logoHref="/" forceFloating />
       <main className="bg-black text-white">
         {/* Section 1: Hero / Intro */}
         <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden px-4 py-24 sm:px-6 lg:px-8">
-          {/* Background Image with Overlay */}
+          {/* Animated Background (same as Home hero) */}
           <div className="absolute inset-0 z-0">
-            <Image
-              src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2700&auto=format&fit=crop"
-              alt="Abstract dark fluid background"
-              fill
-              className="object-cover opacity-40"
-              priority
+            <video
+              {...backgroundVideoAttributes}
+              aria-hidden="true"
+              className="h-full w-full object-cover opacity-25"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black" />
           </div>
 
           <div className="relative z-10 mx-auto max-w-5xl text-center">

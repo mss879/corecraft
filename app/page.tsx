@@ -105,11 +105,11 @@ export default function Home() {
           <SiteNav logoHref="#home" />
 
           {/* Hero Content */}
-          <div className="relative z-20 mx-auto mt-24 w-full max-w-[1240px] px-4 md:mt-28 md:px-6">
+          <div className="relative z-20 mx-auto mt-40 md:mt-28 w-full max-w-[1240px] px-4 md:px-6">
             <div className="grid gap-10 md:grid-cols-[minmax(0,0.95fr)_minmax(0,1fr)]">
               {/* Left Column */}
-              <div className="flex min-h-[400px] flex-col items-center justify-end pb-12 md:min-h-[500px] md:items-start md:-ml-16 lg:min-h-[600px] lg:-ml-20">
-                <h1 className="text-center text-[85px] leading-[0.9] font-bold tracking-tight text-black drop-shadow-[0_18px_48px_rgba(255,255,255,0.8)] md:text-left md:text-[110px] lg:text-[135px]" style={{ fontFamily: '"Stack Sans Notch", sans-serif' }}>
+              <div className="flex min-h-[400px] flex-col items-center justify-center md:justify-end pb-12 md:min-h-[500px] md:items-start md:-ml-16 lg:min-h-[600px] lg:-ml-20">
+                <h1 className="text-center text-[95px] leading-[0.9] font-bold tracking-tight text-black drop-shadow-[0_18px_48px_rgba(255,255,255,0.8)] md:text-left md:text-[110px] lg:text-[135px]" style={{ fontFamily: '"Stack Sans Notch", sans-serif' }}>
                   Create.
                   <br />
                   Refine.

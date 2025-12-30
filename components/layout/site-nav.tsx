@@ -78,7 +78,7 @@ export function SiteNav({ logoHref = '/', forceFloating = false }: SiteNavProps)
         />
         <div
           className={cn(
-            'relative z-10 flex w-full items-center justify-center transition-all duration-500 md:justify-between',
+            'relative z-10 flex w-full items-center justify-between transition-all duration-500',
             isNavFloating
               ? 'mx-auto h-[74px] max-w-[95%] px-4 md:px-8'
               : 'h-20 px-4 pt-8 md:px-6 lg:h-24'
@@ -86,11 +86,7 @@ export function SiteNav({ logoHref = '/', forceFloating = false }: SiteNavProps)
         >
           <a
             href={logoHref}
-            className={cn(
-              'flex items-center',
-              'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0',
-              isNavFloating ? 'md:mr-0' : ''
-            )}
+            className={cn('flex items-center', isNavFloating ? 'mr-auto flex-shrink-0 md:mr-0' : '')}
           >
             <Image
               src="/Copy of CoreCraft Logo.png"
@@ -99,7 +95,7 @@ export function SiteNav({ logoHref = '/', forceFloating = false }: SiteNavProps)
               height={70}
               className={cn(
                 'w-auto transition-all duration-300',
-                isNavFloating ? 'h-10 sm:h-12 md:h-[64px]' : 'h-10 sm:h-12 md:h-16 lg:h-[82px]'
+                isNavFloating ? 'h-[64px]' : 'h-16 lg:h-[82px]'
               )}
               priority
             />
@@ -115,10 +111,8 @@ export function SiteNav({ logoHref = '/', forceFloating = false }: SiteNavProps)
 
           <div
             className={cn(
-              'relative transition-all duration-300',
-              'absolute right-4 top-1/2 -translate-y-1/2 md:static md:translate-y-0',
-              'w-[58px] md:w-[150px]',
-              isNavFloating ? 'h-[58px] md:h-[70px]' : 'h-[58px] md:h-20'
+              'relative w-[150px] transition-all duration-300',
+              isNavFloating ? 'ml-auto h-[70px] flex-shrink-0 md:ml-0' : 'h-20'
             )}
           >
             <StaggeredMenu

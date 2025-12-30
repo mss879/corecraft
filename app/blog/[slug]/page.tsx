@@ -5,7 +5,7 @@ import { SiteNav } from '@/components/layout/site-nav';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { Metadata } from 'next';
 
-export const revalidate = 60; // Revalidate every 60 seconds
+export const dynamicParams = false;
 
 interface Blog {
   id: string;
@@ -17,6 +17,14 @@ interface Blog {
   created_at: string;
   published: boolean;
   author: string;
+}
+
+export async function generateStaticParams() {
+  const { data } = await supabase.from('blogs').select('slug').eq('published', true);
+  return (data ?? [])
+    .map((row) => row?.slug)
+    .filter((slug): slug is string => typeof slug === 'string' && slug.length > 0)
+    .map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {

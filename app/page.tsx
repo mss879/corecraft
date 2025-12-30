@@ -4,9 +4,11 @@ import { useEffect, useState } from 'react';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { SiteNav } from '@/components/layout/site-nav';
 import { WhyUsSection } from '@/components/why-us-section';
+import { ResumeSection } from '@/components/resume-section';
 import { ServicesSection } from '@/components/services-section';
 import { TestimonialsSection } from '@/components/testimonials-section';
 import { HeroHighlights } from '@/components/hero-highlights';
+import { VideoShowcase } from '@/components/video-showcase';
 
 export default function Home() {
   const backgroundVideoAttributes = {
@@ -145,8 +147,10 @@ export default function Home() {
 
   <HeroHighlights />
   <WhyUsSection />
-  <ServicesSection />
-  <TestimonialsSection />
+  <VideoShowcase />
+        <ResumeSection />
+        <ServicesSection />
+        <TestimonialsSection />
 
         <SiteFooter logoHref="#home" />
     </div>

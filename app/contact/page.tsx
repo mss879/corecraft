@@ -25,18 +25,24 @@ const contactDetails: ContactDetail[] = [
     heading: 'Address',
     body: (
       <>
-        123 Market Street, Suite 400
+        416/3, 10th Mile Post, Boralssgamuwa
         <br />
-        Los Angeles, CA 90001
+        Colombo, Sri Lanka
       </>
     ),
   },
   {
     heading: 'Phone',
     body: (
-      <a href="tel:+1234456789" className="transition-colors duration-300 hover:text-white">
-        +1 234 456 789
-      </a>
+      <>
+        <a href="tel:+94774927972" className="transition-colors duration-300 hover:text-white">
+          +94 774927972
+        </a>
+        {' | '}
+        <a href="tel:+94774466473" className="transition-colors duration-300 hover:text-white">
+          +94774466473
+        </a>
+      </>
     ),
   },
   {

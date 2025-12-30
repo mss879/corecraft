@@ -72,7 +72,7 @@ export function SiteNav({ logoHref = '/', forceFloating = false }: SiteNavProps)
       <div className="relative w-full">
         <div
           className={cn(
-            'pointer-events-none absolute left-1/2 top-1/2 z-0 h-[74px] w-full max-w-[1240px] -translate-x-1/2 -translate-y-1/2 rounded-[36px] border border-black/5 bg-white shadow-[0_28px_70px_-48px_rgba(0,0,0,0.65)] transition-all duration-500',
+            'pointer-events-none absolute left-1/2 top-1/2 z-0 h-[74px] w-full max-w-[95%] -translate-x-1/2 -translate-y-1/2 rounded-[36px] border border-black/5 bg-white shadow-[0_28px_70px_-48px_rgba(0,0,0,0.65)] transition-all duration-500',
             isNavFloating ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
           )}
         />
@@ -80,7 +80,7 @@ export function SiteNav({ logoHref = '/', forceFloating = false }: SiteNavProps)
           className={cn(
             'relative z-10 flex w-full items-center justify-between transition-all duration-500',
             isNavFloating
-              ? 'mx-auto h-[74px] max-w-[1240px] px-4 md:px-8'
+              ? 'mx-auto h-[74px] max-w-[95%] px-4 md:px-8'
               : 'h-20 px-4 pt-8 md:px-6 lg:h-24'
           )}
         >
@@ -101,15 +101,13 @@ export function SiteNav({ logoHref = '/', forceFloating = false }: SiteNavProps)
             />
           </a>
 
-          {!isNavFloating && (
-            <div className="hidden items-center space-x-16 transition-all duration-300 md:flex">
-              {primaryLinks.map((link) => (
-                <a key={link.label} className={navLinkClasses} href={link.href}>
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          )}
+          <div className="hidden items-center space-x-16 transition-all duration-300 md:flex">
+            {primaryLinks.map((link) => (
+              <a key={link.label} className={navLinkClasses} href={link.href}>
+                {link.label}
+              </a>
+            ))}
+          </div>
 
           <div
             className={cn(

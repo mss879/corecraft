@@ -35,7 +35,7 @@ const TikTokIcon = (props: SVGProps<SVGSVGElement>) => (
 );
 
 export const primaryLinks: NavLink[] = [
-  { label: 'ABOUT', href: '#about' },
+  { label: 'ABOUT', href: '/about' },
   { label: 'PORTFOLIO', href: '/projects' },
   { label: 'CONTACT', href: '/contact' },
 ];
@@ -43,6 +43,7 @@ export const primaryLinks: NavLink[] = [
 export const menuLinks: NavLink[] = [
   { label: 'HOME', href: '/' },
   { label: 'SERVICES', href: '/services' },
+  { label: 'BLOG', href: '/blog' },
 ];
 
 export const socialLinks: SocialLink[] = [

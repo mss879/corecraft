@@ -88,7 +88,7 @@ export function TestimonialsSection() {
           <div className="space-y-6">
             <div className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.4em] text-white/60">
               <span className="h-1 w-8 rounded-full" style={{ backgroundColor: accent }} aria-hidden="true" />
-              <span className="text-white">004</span>
+              <span className="text-white">005</span>
               <span>Testimonials</span>
             </div>
             <div className="space-y-3">
@@ -146,26 +146,7 @@ export function TestimonialsSection() {
                   </p>
                 </div>
 
-                <div className={`mt-10 flex items-center justify-between gap-6 border-t pt-6 ${isAccent ? 'border-black/10' : 'border-white/10'}`}>
-                  <div className={isAccent ? 'text-black' : 'text-white'}>
-                    <p className="text-lg font-semibold">{card.name}</p>
-                    <p className={isAccent ? 'text-sm text-black/70' : 'text-sm text-white/60'}>{card.role}</p>
-                  </div>
-                  <span className="inline-flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-white/20 bg-black/10">
-                    <img src={card.avatar} alt={`${card.name} portrait`} className="h-full w-full object-cover" loading="lazy" />
-                  </span>
-                </div>
-
-                {card.stats && (
-                  <div className="mt-8 grid gap-4 border-t border-black/10 pt-6">
-                    {card.stats.map((stat) => (
-                      <div key={stat.label} className="flex items-baseline justify-between gap-4">
-                        <span className="text-3xl font-semibold text-white md:text-4xl">{stat.value}</span>
-                        <span className="text-sm text-white/80">{stat.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                {/* Name, image, role, and stats removed as requested */}
               </article>
             );
           })}

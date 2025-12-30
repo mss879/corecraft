@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# large media (GitHub 100MB limit)
+/public/video for desktop.mp4
+/public/video for mobile.mp4

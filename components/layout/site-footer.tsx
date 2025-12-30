@@ -119,23 +119,28 @@ export function SiteFooter({ logoHref = '/' }: { logoHref?: string }) {
         <div className="mt-16 flex flex-col gap-8 border-t border-white/10 pt-10 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex flex-col gap-6 text-white/80 sm:flex-row sm:items-center sm:gap-10">
             <a
-              href="tel:+1234456789"
+              href="tel:+94774927972"
               className="flex items-center gap-3 text-base transition-colors duration-300 hover:text-white"
             >
               <span className="h-3 w-3 rounded-full bg-[#ff502e]" />
-              +1 234 456 789
+              +94 774927972 | +94774466473
             </a>
             <a
-              href="mailto:hello@corecraft.com"
+              href="mailto:info@corecraft.agency"
               className="flex items-center gap-3 text-base transition-colors duration-300 hover:text-white"
             >
               <span className="h-3 w-3 rounded-full bg-[#ff502e]" />
-              hello@corecraft.com
+              info@corecraft.agency
             </a>
           </div>
 
           <div className="flex flex-wrap items-center gap-4 text-sm text-[#c2c2c2]">
-            <div className="flex items-center gap-2 transition-opacity duration-300 hover:opacity-80">
+            <a 
+              href="https://www.arcai.agency" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 transition-opacity duration-300 hover:opacity-80"
+            >
               <span>Made by</span>
               <Image
                 src="/arclogo.png"
@@ -144,7 +149,7 @@ export function SiteFooter({ logoHref = '/' }: { logoHref?: string }) {
                 height={32}
                 className="h-8 w-auto"
               />
-            </div>
+            </a>
             <span className="h-3 w-px bg-white/20" />
             <span className="transition-colors duration-300">Powered by Next.js</span>
             <span className="h-3 w-px bg-white/20" />

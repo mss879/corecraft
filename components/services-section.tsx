@@ -2,6 +2,7 @@
 
 import * as Accordion from '@radix-ui/react-accordion';
 import { ArrowUpRight, Minus, Plus } from 'lucide-react';
+import { GetStartedModal } from '@/components/get-started-modal';
 
 const accentColor = '#ff502e';
 
@@ -76,7 +77,7 @@ const services = [
       'Personal brand polish that elevates your LinkedIn presence and resume—designed to open doors and spark conversations.',
     description:
       'Expert profile optimization and resume crafting that maximize visibility, expand your network, and present your value with clarity. We fine-tune messaging, narrative, and calls-to-action so opportunities find you first.',
-    ctaHref: './contact',
+    ctaHref: 'https://drive.google.com/file/d/1KsCB3uc40rU0NWmfzjmscl4FrCy6K7Yd/view?usp=drive_link',
   },
   {
     id: '009',
@@ -106,7 +107,7 @@ export function ServicesSection() {
           <div className="space-y-6">
             <div className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.4em] text-white/60">
               <span className="h-1 w-8 rounded-full" style={{ backgroundColor: accentColor }} aria-hidden="true" />
-              <span className="text-white">003</span>
+              <span className="text-white">004</span>
               <span>Services</span>
             </div>
             <div className="space-y-3">
@@ -163,13 +164,22 @@ export function ServicesSection() {
                 <div className="space-y-6 pb-10 pl-4 pr-4 text-sm md:pl-28 md:pr-8 md:text-base">
                   <p className="max-w-3xl text-white/60">{service.summary}</p>
                   <p className="max-w-3xl leading-relaxed">{service.description}</p>
-                  <a
-                    href={service.ctaHref}
-                    className="group inline-flex w-max items-center gap-3 rounded-full bg-[rgb(255,80,46)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.35em] text-black transition-transform duration-300 hover:translate-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                  >
-                    Get started
-                    <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-                  </a>
+                  {service.id === '008' ? (
+                    <GetStartedModal>
+                      <button className="group inline-flex w-max items-center gap-3 rounded-full bg-[rgb(255,80,46)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.35em] text-black transition-transform duration-300 hover:translate-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
+                        Get started
+                        <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+                      </button>
+                    </GetStartedModal>
+                  ) : (
+                    <a
+                      href={service.ctaHref}
+                      className="group inline-flex w-max items-center gap-3 rounded-full bg-[rgb(255,80,46)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.35em] text-black transition-transform duration-300 hover:translate-x-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                    >
+                      Get started
+                      <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+                    </a>
+                  )}
                 </div>
               </Accordion.Content>
             </Accordion.Item>

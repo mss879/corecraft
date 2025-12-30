@@ -58,10 +58,8 @@ export function SiteFooter({ logoHref = '/' }: { logoHref?: string }) {
             </div>
 
             <Link
-              href="https://mandala.framer.website/contact?utm_source=framer"
+              href="/contact"
               className="group inline-flex items-center gap-4 rounded-[25px] border border-[#696969] px-8 py-4 text-lg font-semibold text-white transition duration-300 hover:border-[#ff502e] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ff502e]/70"
-              target="_blank"
-              rel="noopener noreferrer"
             >
               <span className="relative z-10">Start a Project</span>
               <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#ff502e] text-black transition-transform duration-300 group-hover:translate-x-1">

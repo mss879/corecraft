@@ -66,7 +66,7 @@ export default function BlogPage() {
         
         {/* Navigation */}
         <div className="relative z-50">
-          <SiteNav logoHref="/" forceFloating={true} theme="dark" />
+          <SiteNav logoHref="/" forceFloating={true} />
         </div>
 
         {/* Page Title - Overlaid on Image */}

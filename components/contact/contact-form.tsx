@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -30,21 +31,40 @@ export function ContactForm() {
     setStatus('loading');
     setErrorMessage(null);
 
-    const { error } = await supabase.from('inquiries').insert({
-      name: formState.name,
-      company: formState.company,
-      email: formState.email,
-      message: formState.message,
-    });
+    try {
+      // Save to Supabase
+      const { error: supabaseError } = await supabase.from('inquiries').insert({
+        name: formState.name,
+        company: formState.company,
+        email: formState.email,
+        message: formState.message,
+      });
 
-    if (error) {
-      setErrorMessage(error.message);
+      if (supabaseError) {
+        setErrorMessage(supabaseError.message);
+        setStatus('error');
+        return;
+      }
+
+      // Send email via EmailJS
+      await emailjs.send(
+        'service_j8qlez4',
+        'template_hszc9nl',
+        {
+          name: formState.name,
+          company: formState.company,
+          email: formState.email,
+          message: formState.message,
+        },
+        'ZWFeg9HvmUmAkjDtb'
+      );
+
+      setFormState(initialState);
+      setStatus('success');
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : 'Failed to send message');
       setStatus('error');
-      return;
     }
-
-    setFormState(initialState);
-    setStatus('success');
   }
 
   return (

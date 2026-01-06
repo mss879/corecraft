@@ -167,7 +167,6 @@ export function ResumeFormTab() {
       field_type: q.field_type,
       required: q.required,
       optionsText: optionsToText(q.options),
-      order_index: q.order_index ?? 0,
       active: q.active,
     });
     setEditorOpen(true);

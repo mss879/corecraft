@@ -9,6 +9,7 @@ import { supabase } from '@/lib/supabaseClient';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { ShareButton } from '@/components/share-button';
 
 interface Blog {
   id: string;
@@ -188,6 +189,14 @@ export default function BlogPage() {
                   <h2 className="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl text-white" style={{ fontFamily: '"Stack Sans Notch", sans-serif' }}>
                     {selectedBlog.title}
                   </h2>
+                  <div>
+                    <ShareButton
+                      title={selectedBlog.title}
+                      text={selectedBlog.excerpt}
+                      path={`/blog/${selectedBlog.slug}`}
+                      className="border-white/15 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+                    />
+                  </div>
                 </div>
 
                 <div className="prose prose-lg prose-invert mx-auto max-w-none">

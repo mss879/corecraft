@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { SiteNav } from '@/components/layout/site-nav';
 import { SiteFooter } from '@/components/layout/site-footer';
+import { ShareButton } from '@/components/share-button';
 import { Metadata } from 'next';
 
 export const dynamicParams = false;
@@ -83,6 +84,14 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
               <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl" style={{ fontFamily: '"Stack Sans Notch", sans-serif' }}>
                 {blog.title}
               </h1>
+              <div className="flex justify-center">
+                <ShareButton
+                  title={blog.title}
+                  text={blog.excerpt}
+                  path={`/blog/${blog.slug}`}
+                  className="border-white/20 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+                />
+              </div>
             </div>
           </div>
         </div>

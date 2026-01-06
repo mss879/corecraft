@@ -23,6 +23,7 @@ import { X, Eye } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 import { CareersTab } from './careers-tab';
+import { ResumeFormTab } from './resume-form-tab';
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
@@ -118,7 +119,7 @@ interface Project {
 }
 
 export default function AdminDashboardPage() {
-  const [activeTab, setActiveTab] = useState<'inquiries' | 'careers' | 'crm' | 'blogs' | 'projects'>('inquiries');
+  const [activeTab, setActiveTab] = useState<'inquiries' | 'careers' | 'resume_form' | 'crm' | 'blogs' | 'projects'>('inquiries');
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [careerInquiries, setCareerInquiries] = useState<CareerInquiry[]>([]);
   const [leads, setLeads] = useState<Lead[]>([]);
@@ -515,9 +516,10 @@ export default function AdminDashboardPage() {
 
       <div className="flex flex-wrap items-center gap-3 rounded-[999px] border border-white/10 bg-white/5 p-2 text-sm">
         {[
+          { id: 'crm', label: 'Simple CRM' },
           { id: 'inquiries', label: 'Website inquiries' }, 
           { id: 'careers', label: 'Career Inquiries' },
-          { id: 'crm', label: 'Simple CRM' },
+          { id: 'resume_form', label: 'Resume Form' },
           { id: 'blogs', label: 'Blog Posts' },
           { id: 'projects', label: 'Projects' }
         ].map((tab) => (
@@ -538,6 +540,8 @@ export default function AdminDashboardPage() {
       {activeTab === 'careers' && (
         <CareersTab inquiries={careerInquiries} setInquiries={setCareerInquiries} />
       )}
+
+      {activeTab === 'resume_form' && <ResumeFormTab />}
 
       {activeTab === 'inquiries' && (
         <section className="space-y-4">

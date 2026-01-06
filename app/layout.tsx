@@ -6,8 +6,8 @@ import { Toaster } from '@/components/ui/sonner';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'CoreCraft - Premium Design & Development Agency',
-  description: 'CoreCraft is the #1 Resume & ATS Career Services agency in Sri Lanka. We specialize in professional CV writing, LinkedIn profile optimization, and career coaching to elevate your professional journey. Also offering premium digital services including branding, web development, and SEO.',
+  title: 'CoreCraft | Premium Design, Web Development & Career Services',
+  description: 'Sri Lanka\'s #1 Agency for ATS Resume Writing, LinkedIn Optimization, Web Design & Branding. Elevate your career & digital presence with CoreCraft.',
   keywords: [
     'resume creation Sri Lanka',
     'CV making Sri Lanka',
@@ -36,8 +36,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    title: 'CoreCraft - Premium Design & Development Agency',
-    description: 'Elevate your career with Sri Lanka\'s top professional resume writers. We craft ATS-friendly CVs and optimize LinkedIn profiles for local and global opportunities.',
+    title: 'CoreCraft | Premium Design, Web Development & Career Services',
+    description: 'Sri Lanka\'s #1 Agency for ATS Resume Writing, LinkedIn Optimization, Web Design & Branding. Elevate your career & digital presence with CoreCraft.',
     siteName: 'CoreCraft',
     images: [
       {
@@ -50,8 +50,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CoreCraft - Premium Design & Development Agency',
-    description: 'Expert CV writing and LinkedIn optimization services in Sri Lanka. Build your professional brand with CoreCraft.',
+    title: 'CoreCraft | Premium Design, Web Development & Career Services',
+    description: 'Sri Lanka\'s #1 Agency for ATS Resume Writing, LinkedIn Optimization, Web Design & Branding. Elevate your career & digital presence with CoreCraft.',
     creator: '@VeloxThemes',
     images: ['/corecraft-logo.png'],
   },
@@ -65,15 +65,6 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  icons: {
-    icon: [
-      { url: '/corecraftfavicon.png' },
-      { url: '/corecraftfavicon.png', sizes: '32x32', type: 'image/png' },
-      { url: '/corecraftfavicon.png', sizes: '16x16', type: 'image/png' },
-    ],
-    shortcut: '/corecraftfavicon.png',
-    apple: '/corecraftfavicon.png',
   },
   verification: {
     // Add your verification codes here when available

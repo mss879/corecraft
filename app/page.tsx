@@ -21,7 +21,7 @@ export default function Home() {
       'https://www.linkedin.com/company/corecraft',
       // Add other social profiles here
     ],
-    description: 'CoreCraft is the #1 Resume & ATS Career Services agency in Sri Lanka specializing in CV writing and LinkedIn optimization.',
+    description: 'Sri Lanka\'s #1 Agency for ATS Resume Writing, LinkedIn Optimization, Web Design & Branding. Elevate your career & digital presence with CoreCraft.',
   };
 
   const backgroundVideoAttributes = {

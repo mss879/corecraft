@@ -49,7 +49,7 @@ const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   displaySocials = true,
   displayItemNumbering = true,
   className,
-  logoUrl = '/Copy of CoreCraft Logo.png',
+  logoUrl = '/corecraft-logo.png',
   menuButtonColor = '#100e0e',
   openMenuButtonColor = '#ff502e',
   changeMenuColorOnOpen = true,

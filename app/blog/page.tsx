@@ -52,13 +52,36 @@ export default function BlogPage() {
     fetchBlogs();
   }, []);
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://www.corecraft.agency',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Blog',
+        item: 'https://www.corecraft.agency/blog',
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-black text-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <div className="relative h-[300px] w-full overflow-hidden md:h-[350px] lg:h-[400px]">
         {/* Background Image */}
         <Image
           src="https://framerusercontent.com/images/wUatyS07We1puzzPLO6XxWqf5Mk.jpg"
-          alt="Blog Header"
+          alt="CoreCraft Career Insights & Blog Header"
           fill
           className="object-cover opacity-60"
           priority
@@ -75,10 +98,10 @@ export default function BlogPage() {
           <div className="mx-auto max-w-[1200px] px-4 md:px-8">
             <div className="space-y-3 text-center">
               <h1 className="text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl" style={{ fontFamily: '"Stack Sans Notch", sans-serif' }}>
-                Insights
+                Career Insights & Blog
               </h1>
               <p className="mx-auto max-w-2xl text-base text-white/70 md:text-lg">
-                Thoughts, strategies, and stories from the forefront of digital innovation.
+                Expert advice on resume writing, career growth strategies, and digital innovation.
               </p>
             </div>
           </div>

@@ -38,7 +38,7 @@ export function SiteFooter({ logoHref = '/' }: { logoHref?: string }) {
           <div className="space-y-10">
             <Link href={logoHref} className="inline-flex items-center" aria-label="CoreCraft home">
               <Image
-                src="/Copy of CoreCraft Logo.png"
+                src="/corecraft-logo.png"
                 alt="CoreCraft logo"
                 width={220}
                 height={70}
@@ -74,14 +74,23 @@ export function SiteFooter({ logoHref = '/' }: { logoHref?: string }) {
               <ul className="space-y-2">
                 {companyLinks.map((link) => (
                   <li key={link.href}>
-                    <a
-                      href={link.href}
-                      className="transition-colors duration-300 hover:text-white"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {link.label}
-                    </a>
+                    {link.href.startsWith('/') ? (
+                      <Link
+                        href={link.href}
+                        className="transition-colors duration-300 hover:text-white"
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={link.href}
+                        className="transition-colors duration-300 hover:text-white"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {link.label}
+                      </a>
+                    )}
                   </li>
                 ))}
                 <li>
@@ -102,8 +111,8 @@ export function SiteFooter({ logoHref = '/' }: { logoHref?: string }) {
                     <a
                       href={link.href}
                       className="transition-colors duration-300 hover:text-white"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      target={link.href === '#' ? undefined : '_blank'}
+                      rel={link.href === '#' ? undefined : 'noopener noreferrer'}
                     >
                       {link.label}
                     </a>
@@ -121,7 +130,7 @@ export function SiteFooter({ logoHref = '/' }: { logoHref?: string }) {
               className="flex items-center gap-3 text-base transition-colors duration-300 hover:text-white"
             >
               <span className="h-3 w-3 rounded-full bg-[#ff502e]" />
-              +94 774927972 | +94774466473
+              +94 77 492 7972 | +94 77 446 6473
             </a>
             <a
               href="mailto:info@corecraft.agency"
@@ -151,7 +160,9 @@ export function SiteFooter({ logoHref = '/' }: { logoHref?: string }) {
             <span className="h-3 w-px bg-white/20" />
             <span className="transition-colors duration-300">Powered by Next.js</span>
             <span className="h-3 w-px bg-white/20" />
-            <span className="transition-colors duration-300">© 2025 corecraft®. All rights reserved.</span>
+            <span className="transition-colors duration-300">
+              © <span suppressHydrationWarning>{new Date().getFullYear()}</span> corecraft®. All rights reserved.
+            </span>
           </div>
         </div>
       </div>

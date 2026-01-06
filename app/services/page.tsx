@@ -37,6 +37,26 @@ type ServiceCard = {
 
 const serviceCards: ServiceCard[] = [
   {
+    id: 'resume-career-services',
+    accent: 'Resume &',
+    title: 'Career Services',
+    description: 'Expert ATS resume writing, CV creation, and LinkedIn optimization for job seekers in Sri Lanka and globally.',
+    metricLabel: 'Interview callback rates increase on average by',
+    metricValue: '70%',
+    features: ['ATS Resume Writing', 'Professional CV Design', 'LinkedIn Optimization', 'Cover Letter Writing', 'Executive Bios', 'Interview Preparation'],
+    icon: <Briefcase className="h-6 w-6" aria-hidden="true" />,
+  },
+  {
+    id: 'ats-optimization',
+    accent: 'ATS',
+    title: 'Optimization',
+    description: 'Ensure your resume passes Applicant Tracking Systems with our specialized optimization.',
+    metricLabel: 'Pass rate for automated screenings improves by',
+    metricValue: '95%',
+    features: ['Keyword Optimization', 'Format Compliance', 'ATS Scanning', 'Score Analysis', 'Reformatting', 'Content Strategy'],
+    icon: <Target className="h-6 w-6" aria-hidden="true" />,
+  },
+  {
     id: 'brand-identity',
     accent: 'Brand',
     title: 'Identity',
@@ -60,21 +80,11 @@ const serviceCards: ServiceCard[] = [
     id: 'seo-optimization',
     accent: 'SEO',
     title: 'Optimization',
-    description: 'Making sure your brand gets found first.',
+    description: 'Making sure your brand gets found first (Web & Career).',
     metricLabel: 'Rank on page #1 and grow organic traffic by',
     metricValue: '250%',
     features: ['On-page SEO', 'Link Building', 'Keyword Research', 'Local SEO', 'Technical SEO', 'Growth Tracking'],
     icon: <Search className="h-6 w-6" aria-hidden="true" />,
-  },
-  {
-    id: 'conversion-strategy',
-    accent: 'Conversion',
-    title: 'Strategy',
-    description: 'Our goal is to turn visitors into loyal customers.',
-    metricLabel: 'Average ROI increase of 5x within the first 90 days.',
-    metricValue: '5x',
-    features: ['Funnel Design', 'CRO Testing', 'Landing Pages', 'Retargeting Ads', 'A/B Testing', 'Analytics Setup'],
-    icon: <Target className="h-6 w-6" aria-hidden="true" />,
   },
   {
     id: 'website-development',
@@ -147,16 +157,6 @@ const serviceCards: ServiceCard[] = [
     icon: <BarChart3 className="h-6 w-6" aria-hidden="true" />,
   },
   {
-    id: 'professional-branding',
-    accent: 'Career',
-    title: 'Branding',
-    description: 'LinkedIn and resume polish that puts your story in front of decision makers.',
-    metricLabel: 'Interview callback rates increase on average by',
-    metricValue: '70%',
-    features: ['LinkedIn Optimization', 'Thought Leadership Guides', 'Networking Playbooks', 'Resume & CV Crafting', 'Executive Bios', 'Outreach Messaging'],
-    icon: <Briefcase className="h-6 w-6" aria-hidden="true" />,
-  },
-  {
     id: 'business-automation',
     accent: 'Operational',
     title: 'Automation',
@@ -179,8 +179,68 @@ const serviceCards: ServiceCard[] = [
 ];
 
 export default function ServicesPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: 'Resume Writing & Career Support',
+    provider: {
+      '@type': 'LocalBusiness',
+      name: 'CoreCraft',
+      image: 'https://www.corecraft.agency/corecraft-logo.png',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '416/3, 10th Mile Post, Boralssgamuwa',
+        addressLocality: 'Colombo',
+        addressCountry: 'LK',
+      },
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'Sri Lanka',
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Career Services',
+      itemListElement: serviceCards.map((service) => ({
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: service.title === 'Identity' || service.title === 'Optimization' ? `${service.accent} ${service.title}` : service.title,
+          description: service.description,
+        },
+      })),
+    },
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://www.corecraft.agency',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Services',
+        item: 'https://www.corecraft.agency/services',
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-[#f6f6f6] text-black">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <SiteNav logoHref="/" forceFloating />
 
       <main className="mx-auto max-w-[1240px] px-4 pt-36 pb-24 md:px-8 md:pt-40">
@@ -195,11 +255,11 @@ export default function ServicesPage() {
                 className="text-4xl font-semibold leading-[1.05] text-black md:text-5xl lg:text-[58px]"
                 style={{ fontFamily: '"Stack Sans Notch", sans-serif' }}
               >
-                Full-Service Agency Work
+                Resume, Career & Digital Services
               </h1>
             </div>
             <p className="max-w-xl text-base text-neutral-600 md:text-lg">
-              We offer comprehensive digital agency solutions designed to build, strengthen, and scale your brand in the modern marketplace.
+              Professional resume writing, ATS optimization, and comprehensive digital agency solutions designed to build your career and brand.
             </p>
           </div>
         </section>
@@ -251,7 +311,7 @@ export default function ServicesPage() {
                 </span>
               </div>
 
-              {service.id === 'professional-branding' ? (
+              {service.id === 'resume-career-services' ? (
                 <GetStartedModal>
                   <button className="mt-auto inline-flex w-full items-center justify-center rounded-full bg-black py-4 text-sm font-semibold text-white transition-colors hover:bg-neutral-800">
                     Get Started

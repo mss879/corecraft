@@ -22,8 +22,31 @@ export default function AboutPage() {
     disablePictureInPicture: true,
   };
 
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://www.corecraft.agency',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'About',
+        item: 'https://www.corecraft.agency/about',
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <SiteNav logoHref="/" forceFloating />
       <main className="bg-black text-white">
         {/* Section 1: Hero / Intro */}
@@ -103,7 +126,7 @@ export default function AboutPage() {
               <div className="relative aspect-[4/5] overflow-hidden rounded-[40px] border border-white/10 lg:aspect-auto">
                 <Image
                   src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2670&auto=format&fit=crop"
-                  alt="Abstract geometric shapes"
+                  alt="CoreCraft's tailored approach to career services"
                   fill
                   className="object-cover transition-transform duration-700 hover:scale-105"
                 />
@@ -129,7 +152,7 @@ export default function AboutPage() {
               <div className="absolute inset-0 opacity-20 mix-blend-overlay">
                 <Image
                   src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2672&auto=format&fit=crop"
-                  alt="Digital network background"
+                  alt="Global digital network and career opportunities"
                   fill
                   className="object-cover"
                 />

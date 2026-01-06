@@ -137,7 +137,7 @@ export default function AdminLoginPage() {
               {loading ? 'Signing in…' : 'Enter workspace'}
             </Button>
             <p className="text-center text-xs text-white/50">
-              Having trouble? <a href="mailto:hello@corecraft.com" className="text-white">Contact support.</a>
+              Having trouble? <a href="mailto:hello@corecraft.agency" className="text-white">Contact support.</a>
             </p>
           </form>
         </div>

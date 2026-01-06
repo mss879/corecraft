@@ -10,9 +10,47 @@ import { SiteNav } from '@/components/layout/site-nav';
 const libreCaslon = Libre_Caslon_Text({ subsets: ['latin'], weight: ['400', '700'] });
 
 export const metadata: Metadata = {
-  title: 'Contact CoreCraft | Collaborate With Our Team',
+  title: 'Contact CoreCraft | Resume Writing & Career Services Sri Lanka',
   description:
-    'Get in touch with the CoreCraft team to discuss your next project. Share your vision, ask a question, or request a custom proposal today.',
+    'Get in touch with CoreCraft for professional resume writing, ATS optimization, and digital services. Visit us in Colombo or contact us online for global career support.',
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'CoreCraft',
+  image: 'https://www.corecraft.agency/corecraft-logo.png',
+  '@id': 'https://www.corecraft.agency',
+  url: 'https://www.corecraft.agency',
+  telephone: '+94774927972',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '416/3, 10th Mile Post, Boralssgamuwa',
+    addressLocality: 'Colombo',
+    addressCountry: 'LK',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 6.840,
+    longitude: 79.898,
+  },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+    ],
+    opens: '09:00',
+    closes: '18:00',
+  },
+  priceRange: '$$',
+  sameAs: [
+    'https://www.linkedin.com/company/corecraft',
+    // Add other social profiles here
+  ],
 };
 
 type ContactDetail = {
@@ -36,11 +74,11 @@ const contactDetails: ContactDetail[] = [
     body: (
       <>
         <a href="tel:+94774927972" className="transition-colors duration-300 hover:text-white">
-          +94 774927972
+          +94 77 492 7972
         </a>
         {' | '}
         <a href="tel:+94774466473" className="transition-colors duration-300 hover:text-white">
-          +94774466473
+          +94 77 446 6473
         </a>
       </>
     ),
@@ -54,6 +92,10 @@ const contactDetails: ContactDetail[] = [
 export default function ContactPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <SiteNav logoHref="/" forceFloating />
       <main className="relative isolate overflow-hidden bg-black pb-24 pt-32 text-white sm:pt-40">
         <div className="mx-auto grid max-w-[1200px] gap-16 px-4 md:px-6 lg:grid-cols-[minmax(0,0.55fr)_minmax(0,0.45fr)] lg:items-start xl:gap-24">

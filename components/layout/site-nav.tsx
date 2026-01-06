@@ -89,7 +89,7 @@ export function SiteNav({ logoHref = '/', forceFloating = false }: SiteNavProps)
             className={cn('flex items-center', isNavFloating ? 'mr-auto flex-shrink-0 md:mr-0' : '')}
           >
             <Image
-              src="/Copy of CoreCraft Logo.png"
+              src="/corecraft-logo.png"
               alt="CoreCraft logo"
               width={220}
               height={70}
@@ -133,7 +133,7 @@ export function SiteNav({ logoHref = '/', forceFloating = false }: SiteNavProps)
               displaySocials
               displayItemNumbering
               isFixed
-              logoUrl="/Copy of CoreCraft Logo.png"
+              logoUrl="/corecraft-logo.png"
               onMenuOpen={() => {
                 document.documentElement.classList.add('overflow-hidden');
               }}

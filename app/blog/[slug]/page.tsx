@@ -47,8 +47,33 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     notFound();
   }
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: blog.title,
+    image: blog.image_url || 'https://www.corecraft.agency/corecraft-logo.png',
+    author: {
+      '@type': 'Person',
+      name: blog.author || 'CoreCraft Team',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'CoreCraft',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://www.corecraft.agency/corecraft-logo.png',
+      },
+    },
+    datePublished: blog.created_at,
+    description: blog.excerpt,
+  };
+
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       {/* Header Section with Image and Title */}
       <div className="relative h-[400px] w-full overflow-hidden md:h-[450px] lg:h-[500px]">
         {/* Background Image */}

@@ -11,6 +11,19 @@ import { HeroHighlights } from '@/components/hero-highlights';
 import { VideoShowcase } from '@/components/video-showcase';
 
 export default function Home() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'CoreCraft',
+    url: 'https://www.corecraft.agency',
+    logo: 'https://www.corecraft.agency/corecraft-logo.png',
+    sameAs: [
+      'https://www.linkedin.com/company/corecraft',
+      // Add other social profiles here
+    ],
+    description: 'CoreCraft is the #1 Resume & ATS Career Services agency in Sri Lanka specializing in CV writing and LinkedIn optimization.',
+  };
+
   const backgroundVideoAttributes = {
     src: 'https://framerusercontent.com/assets/yRnijo7PDqWkI1jNm8VMsqdm4.mp4',
     loop: true,
@@ -64,6 +77,10 @@ export default function Home() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div
         className={`fixed inset-0 z-[60] flex flex-col items-center justify-center gap-6 bg-[#0e0c0c] text-white transition-opacity duration-700 ${isLoading ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         role="status"

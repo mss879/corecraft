@@ -52,7 +52,7 @@ type TestimonialVariant = (typeof testimonialCards)[number]['variant'];
 const performanceMetrics = [
   {
     id: 'metric-001',
-    value: '4.6s',
+    value: '2.1s',
   description: "Average page load time across all client websites we've deployed",
   },
   {

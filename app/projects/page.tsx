@@ -64,7 +64,7 @@ export default function ProjectsPage() {
         {/* Background Image */}
         <Image
           src="https://framerusercontent.com/images/wUatyS07We1puzzPLO6XxWqf5Mk.jpg"
-          alt="Projects Header"
+          alt="CoreCraft Successful Career Projects & Case Studies"
           fill
           className="object-cover"
           priority
@@ -80,10 +80,10 @@ export default function ProjectsPage() {
           <div className="mx-auto max-w-[1200px] px-4 md:px-8">
             <div className="space-y-3 text-center">
               <h1 className="text-5xl font-bold leading-tight tracking-tight text-black md:text-6xl lg:text-7xl" style={{ fontFamily: '"Stack Sans Notch", sans-serif' }}>
-                Projects
+                Success Stories & Projects
               </h1>
               <p className="mx-auto max-w-3xl text-lg text-gray-600 md:text-xl">
-                A closer look at selection of our most impactful projects, where strategy, creativity, and innovation come together to drive real results.
+                Explore our impactful career transformations, resume makeovers, and digital branding projects that drive real results.
               </p>
             </div>
           </div>

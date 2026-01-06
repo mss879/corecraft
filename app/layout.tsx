@@ -6,7 +6,7 @@ import { Toaster } from '@/components/ui/sonner';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Resume & ATS Career Services in Sri Lanka | CoreCraft',
+  title: 'CoreCraft - Premium Design & Development Agency',
   description: 'CoreCraft is the #1 Resume & ATS Career Services agency in Sri Lanka. We specialize in professional CV writing, LinkedIn profile optimization, and career coaching to elevate your professional journey. Also offering premium digital services including branding, web development, and SEO.',
   keywords: [
     'resume creation Sri Lanka',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    title: 'CoreCraft - #1 Resume & ATS Career Services in Sri Lanka',
+    title: 'CoreCraft - Premium Design & Development Agency',
     description: 'Elevate your career with Sri Lanka\'s top professional resume writers. We craft ATS-friendly CVs and optimize LinkedIn profiles for local and global opportunities.',
     siteName: 'CoreCraft',
     images: [
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CoreCraft - #1 Resume & ATS Career Services in Sri Lanka',
+    title: 'CoreCraft - Premium Design & Development Agency',
     description: 'Expert CV writing and LinkedIn optimization services in Sri Lanka. Build your professional brand with CoreCraft.',
     creator: '@VeloxThemes',
     images: ['/corecraft-logo.png'],

@@ -1,4 +1,4 @@
-'use client';
+import type { Metadata } from 'next';
 
 import { SiteNav } from '@/components/layout/site-nav';
 import { SiteFooter } from '@/components/layout/site-footer';
@@ -21,6 +21,12 @@ import {
   Lightbulb,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
+
+export const metadata: Metadata = {
+  title: 'Services | Resume Writing, Web Design & Branding - CoreCraft',
+  description:
+    'Explore CoreCraft services including ATS resume writing, LinkedIn optimization, web development, branding, content, and digital growth solutions.',
+};
 
 const accentColor = '#ff502e';
 

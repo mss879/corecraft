@@ -1,4 +1,4 @@
-'use client';
+import type { Metadata } from 'next';
 
 import Image from 'next/image';
 import { Libre_Caslon_Text } from 'next/font/google';
@@ -7,6 +7,12 @@ import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { SiteFooter } from '@/components/layout/site-footer';
 import { SiteNav } from '@/components/layout/site-nav';
 import { cn } from '@/lib/utils';
+
+export const metadata: Metadata = {
+  title: 'About CoreCraft | Our Story, Values & Approach',
+  description:
+    'Learn about CoreCraft—our mission, values, and approach to resume writing, LinkedIn optimization, and premium digital design services.',
+};
 
 const libreCaslon = Libre_Caslon_Text({ subsets: ['latin'], weight: ['400', '700'] });
 

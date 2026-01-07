@@ -24,6 +24,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 import { CareersTab } from './careers-tab';
 import { ResumeFormTab } from './resume-form-tab';
+import { TestimonialsTab } from './testimonials-tab';
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 
@@ -119,7 +120,7 @@ interface Project {
 }
 
 export default function AdminDashboardPage() {
-  const [activeTab, setActiveTab] = useState<'inquiries' | 'careers' | 'resume_form' | 'crm' | 'blogs' | 'projects'>('inquiries');
+  const [activeTab, setActiveTab] = useState<'inquiries' | 'careers' | 'resume_form' | 'crm' | 'blogs' | 'projects' | 'testimonials'>('inquiries');
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
   const [careerInquiries, setCareerInquiries] = useState<CareerInquiry[]>([]);
   const [leads, setLeads] = useState<Lead[]>([]);
@@ -520,6 +521,7 @@ export default function AdminDashboardPage() {
           { id: 'inquiries', label: 'Website inquiries' }, 
           { id: 'careers', label: 'Career Inquiries' },
           { id: 'resume_form', label: 'Resume Form' },
+          { id: 'testimonials', label: 'Testimonials' },
           { id: 'blogs', label: 'Blog Posts' },
           { id: 'projects', label: 'Projects' }
         ].map((tab) => (
@@ -542,6 +544,8 @@ export default function AdminDashboardPage() {
       )}
 
       {activeTab === 'resume_form' && <ResumeFormTab />}
+
+      {activeTab === 'testimonials' && <TestimonialsTab />}
 
       {activeTab === 'inquiries' && (
         <section className="space-y-4">

@@ -1,4 +1,10 @@
-import { ArrowUpRight, Quote, Star } from 'lucide-react';
+"use client";
+
+import { useEffect, useMemo, useState } from 'react';
+import { ArrowUpRight } from 'lucide-react';
+
+import { supabase } from '@/lib/supabaseClient';
+import { InfiniteTestimonialCarousel, type TestimonialCardData } from '@/components/testimonial-cards';
 
 const accent = '#ff502e';
 
@@ -9,45 +15,26 @@ const avatarImages = [
   'https://framerusercontent.com/images/7dBgVlJGddtanMmE6mro8bfVO8.png?scale-down-to=256',
 ];
 
-const testimonialCards = [
+const testimonialFallback: TestimonialCardData[] = [
   {
     id: 'emma-collins',
-    name: 'Emma Collins',
-    role: 'CEO, Powersurge',
     quote:
       'CoreCraft transformed our brand identity and website beyond what we imagined. Their team was professional, creative, and delivered on time. Our online presence has never looked better.',
-    avatar: 'https://framerusercontent.com/images/7dBgVlJGddtanMmE6mro8bfVO8.png?width=480&height=480',
-    variant: 'dark' as const,
+    variant: 'dark',
   },
   {
     id: 'michael-brooks',
-    name: 'Michael Brooks',
-    role: 'CTO, Warpspeed',
     quote:
       'CoreCraft revamped our online store with a sleek design that resonates with customers. Since launch, engagement and user experience have greatly improved.',
-    avatar: 'https://framerusercontent.com/images/Qtiy6JZJ0E0ZUM1L1TfcKWvXjo.png?width=640&height=640',
-    variant: 'accent' as const,
-    stats: [
-      { value: '+35%', label: 'Average order value' },
-      { value: '+45%', label: 'User engagement' },
-    ],
+    variant: 'accent',
   },
   {
     id: 'liam-torres',
-    name: 'Liam Torres',
-    role: 'COO, CloudWatch',
     quote:
       'Our clean, intuitive website now showcases our SaaS platform perfectly, leading to increased sign-ups and higher customer satisfaction.',
-    avatar: 'https://framerusercontent.com/images/VQjluMNywKhZ8T1UbafuyggOpg.png?width=640&height=640',
-    variant: 'accent' as const,
-    stats: [
-      { value: '+54%', label: 'Sign-up rate' },
-      { value: '+25', label: 'Client retention' },
-    ],
+    variant: 'accent',
   },
 ];
-
-type TestimonialVariant = (typeof testimonialCards)[number]['variant'];
 
 const performanceMetrics = [
   {
@@ -67,20 +54,47 @@ const performanceMetrics = [
   },
 ];
 
-const StarRating = ({ variant }: { variant: TestimonialVariant }) => (
-  <div className="flex items-center gap-1">
-    <span className="sr-only">Rated 5 out of 5</span>
-    {Array.from({ length: 5 }).map((_, index) => (
-      <Star
-        key={index}
-        aria-hidden="true"
-        className={variant === 'accent' ? 'h-4 w-4 fill-white text-white' : 'h-4 w-4 fill-[#ff502e] text-[#ff502e]'}
-      />
-    ))}
-  </div>
-);
-
 export function TestimonialsSection() {
+  const [testimonials, setTestimonials] = useState<TestimonialCardData[]>(testimonialFallback);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadTestimonials() {
+      const { data, error } = await supabase
+        .from('testimonials')
+        .select('id, quote, variant, published, created_at')
+        .eq('published', true)
+        .order('created_at', { ascending: false });
+
+      if (!isMounted) return;
+      if (error) return;
+
+      const mapped = (data ?? []).map((row: any) => ({
+        id: String(row.id),
+        quote: String(row.quote ?? ''),
+        variant: (row.variant === 'dark' ? 'dark' : 'accent') as 'dark' | 'accent',
+      })) as TestimonialCardData[];
+
+      if (mapped.length > 0) {
+        setTestimonials(mapped);
+      }
+    }
+
+    loadTestimonials();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const visibleTestimonials = useMemo(() => testimonials.filter((t) => t.quote.trim().length > 0), [testimonials]);
+
+  const carouselTestimonials = useMemo(
+    () => visibleTestimonials.map((t) => ({ ...t, variant: 'accent' as const })),
+    [visibleTestimonials]
+  );
+
   return (
     <section id="testimonials" className="relative overflow-hidden bg-black py-24 text-white md:py-28">
       <div className="mx-auto w-full max-w-[1240px] px-4 md:px-6">
@@ -124,33 +138,7 @@ export function TestimonialsSection() {
           </div>
         </div>
 
-        <div className="mt-16 grid gap-6 lg:grid-cols-3">
-          {testimonialCards.map((card) => {
-            const isAccent = card.variant === 'accent';
-            return (
-              <article
-                key={card.id}
-                className={
-                  `flex h-full flex-col rounded-3xl border ${
-                    isAccent ? 'border-transparent bg-[rgb(249,69,45)] text-black' : 'border-white/10 bg-[#121212] text-white'
-                  } px-8 py-10 shadow-[0_40px_120px_-60px_rgba(0,0,0,0.7)] transition-transform duration-300 hover:-translate-y-1 sm:px-10 sm:py-12`
-                }
-              >
-                <div className="space-y-6">
-                  {!isAccent && (
-                    <Quote className="h-10 w-10 text-white/10" aria-hidden="true" />
-                  )}
-                  <StarRating variant={card.variant} />
-                  <p className={isAccent ? 'text-base leading-relaxed text-black/80 md:text-lg' : 'text-base leading-relaxed text-white/80 md:text-lg'}>
-                    {card.quote}
-                  </p>
-                </div>
-
-                {/* Name, image, role, and stats removed as requested */}
-              </article>
-            );
-          })}
-        </div>
+        <InfiniteTestimonialCarousel testimonials={carouselTestimonials} />
 
         <div className="mt-6 grid gap-6 lg:grid-cols-[repeat(3,minmax(0,1fr))_minmax(0,1.2fr)]">
           {performanceMetrics.map((metric) => (

@@ -5,18 +5,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.corecraft.agency'
 
   // Fetch all published blogs
-  const { data: blogs } = await supabase
+  const { data: blogs, error } = await supabase
     .from('blogs')
-    .select('slug, updated_at, created_at')
+    .select('slug, created_at')
     .eq('published', true)
 
   const blogUrls =
-    blogs?.map((blog) => ({
-      url: `${baseUrl}/blog/${blog.slug}`,
-      lastModified: new Date(blog.updated_at || blog.created_at),
-      changeFrequency: 'weekly' as const,
-      priority: 0.7,
-    })) ?? []
+    !error
+      ? blogs?.map((blog) => ({
+          url: `${baseUrl}/blog/${blog.slug}`,
+          lastModified: new Date(blog.created_at),
+          changeFrequency: 'weekly' as const,
+          priority: 0.7,
+        })) ?? []
+      : []
 
   const routes = [
     {

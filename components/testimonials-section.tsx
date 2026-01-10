@@ -20,18 +20,24 @@ const testimonialFallback: TestimonialCardData[] = [
     id: 'emma-collins',
     quote:
       'CoreCraft transformed our brand identity and website beyond what we imagined. Their team was professional, creative, and delivered on time. Our online presence has never looked better.',
+    name: 'Emma Collins',
+    role: 'Marketing Lead',
     variant: 'dark',
   },
   {
     id: 'michael-brooks',
     quote:
       'CoreCraft revamped our online store with a sleek design that resonates with customers. Since launch, engagement and user experience have greatly improved.',
+    name: 'Michael Brooks',
+    role: 'Ecommerce Manager',
     variant: 'accent',
   },
   {
     id: 'liam-torres',
     quote:
       'Our clean, intuitive website now showcases our SaaS platform perfectly, leading to increased sign-ups and higher customer satisfaction.',
+    name: 'Liam Torres',
+    role: 'Founder',
     variant: 'accent',
   },
 ];
@@ -63,7 +69,7 @@ export function TestimonialsSection() {
     async function loadTestimonials() {
       const { data, error } = await supabase
         .from('testimonials')
-        .select('id, quote, variant, published, created_at')
+        .select('id, quote, name, role, variant, published, created_at')
         .eq('published', true)
         .order('created_at', { ascending: false });
 
@@ -73,6 +79,8 @@ export function TestimonialsSection() {
       const mapped = (data ?? []).map((row: any) => ({
         id: String(row.id),
         quote: String(row.quote ?? ''),
+        name: row.name == null ? null : String(row.name),
+        role: row.role == null ? null : String(row.role),
         variant: (row.variant === 'dark' ? 'dark' : 'accent') as 'dark' | 'accent',
       })) as TestimonialCardData[];
 

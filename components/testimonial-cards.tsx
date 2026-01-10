@@ -82,7 +82,7 @@ export function TestimonialCards({ testimonials }: { testimonials: TestimonialCa
     return (
       <div className="mt-16 grid gap-6 lg:grid-cols-3">
         {normalized.map((card) => (
-          <TestimonialCard key={card.id} quote={card.quote} variant={card.variant} />
+          <TestimonialCard key={card.id} quote={card.quote} variant={card.variant} name={card.name} role={card.role} />
         ))}
       </div>
     );
@@ -96,7 +96,7 @@ export function TestimonialCards({ testimonials }: { testimonials: TestimonialCa
       >
         {normalized.map((card) => (
           <div key={card.id} className="min-w-[320px] max-w-[420px] flex-1">
-            <TestimonialCard quote={card.quote} variant={card.variant} />
+            <TestimonialCard quote={card.quote} variant={card.variant} name={card.name} role={card.role} />
           </div>
         ))}
       </div>

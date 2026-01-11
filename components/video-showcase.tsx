@@ -36,7 +36,7 @@ export function VideoShowcase() {
                 {isVisible && (
                   <iframe
                     className="absolute top-0 left-0 w-full h-full"
-                    src="https://www.youtube.com/embed/TJgX4GUxWRU?autoplay=1&loop=1&playlist=TJgX4GUxWRU&controls=1&modestbranding=1&rel=0"
+                    src="https://www.youtube.com/embed/TJgX4GUxWRU?autoplay=0&loop=1&playlist=TJgX4GUxWRU&controls=1&modestbranding=1&rel=0"
                     title="Desktop Showcase Video"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -52,7 +52,7 @@ export function VideoShowcase() {
                 {isVisible && (
                   <iframe
                     className="absolute top-0 left-0 w-full h-full"
-                    src="https://www.youtube.com/embed/SVejQcihUCM?autoplay=1&loop=1&playlist=SVejQcihUCM&controls=1&modestbranding=1&rel=0"
+                    src="https://www.youtube.com/embed/SVejQcihUCM?autoplay=0&loop=1&playlist=SVejQcihUCM&controls=1&modestbranding=1&rel=0"
                     title="Mobile Showcase Video"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

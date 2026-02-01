@@ -10,7 +10,7 @@ export const metadata = {
 export default function StartCareerPage() {
   return (
     <div className="flex min-h-screen flex-col bg-black text-white selection:bg-[#ff502e] selection:text-white">
-      <SiteNav />
+      <SiteNav forceFloating />
       <main className="flex-1 py-32">
         <div className="container mx-auto max-w-4xl px-4 md:px-6">
           <div className="mb-12 space-y-4 text-center">

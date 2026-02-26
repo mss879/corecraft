@@ -66,6 +66,23 @@ export function SiteFooter({ logoHref = '/' }: { logoHref?: string }) {
                 <ArrowUpRight className="h-5 w-5" />
               </span>
             </Link>
+
+            <div className="flex flex-col gap-4 text-white/80">
+              <a
+                href="tel:+94774927972"
+                className="flex items-center gap-3 text-base transition-colors duration-300 hover:text-white"
+              >
+                <span className="h-3 w-3 rounded-full bg-[#ff502e]" />
+                +94 77 492 7972 | +94 77 446 6473
+              </a>
+              <a
+                href="mailto:info@corecraft.agency"
+                className="flex items-center gap-3 text-base transition-colors duration-300 hover:text-white"
+              >
+                <span className="h-3 w-3 rounded-full bg-[#ff502e]" />
+                info@corecraft.agency
+              </a>
+            </div>
           </div>
 
           <div className="grid gap-12 text-base text-[#c2c2c2] sm:grid-cols-2">
@@ -124,38 +141,15 @@ export function SiteFooter({ logoHref = '/' }: { logoHref?: string }) {
         </div>
 
         <div className="mt-16 flex flex-col gap-8 border-t border-white/10 pt-10 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex flex-col gap-6 text-white/80 sm:flex-row sm:items-center sm:gap-10">
-            <a
-              href="tel:+94774927972"
-              className="flex items-center gap-3 text-base transition-colors duration-300 hover:text-white"
-            >
-              <span className="h-3 w-3 rounded-full bg-[#ff502e]" />
-              +94 77 492 7972 | +94 77 446 6473
-            </a>
-            <a
-              href="mailto:info@corecraft.agency"
-              className="flex items-center gap-3 text-base transition-colors duration-300 hover:text-white"
-            >
-              <span className="h-3 w-3 rounded-full bg-[#ff502e]" />
-              info@corecraft.agency
-            </a>
-          </div>
-
           <div className="flex flex-wrap items-center gap-4 text-sm text-[#c2c2c2]">
             <a 
               href="https://www.arcai.agency" 
               target="_blank" 
-              rel="noopener noreferrer"
+              rel="noopener"
+              title="ARC AI - Web Design & Digital Solutions"
               className="flex items-center gap-2 transition-opacity duration-300 hover:opacity-80"
             >
-              <span>Made by</span>
-              <Image
-                src="/arclogo.png"
-                alt="ARC AI Logo"
-                width={80}
-                height={32}
-                className="h-8 w-auto"
-              />
+              Designed & Developed by <img src="/arclogo.png" alt="ARC AI - Web Design & Digital Solutions" className="h-8 w-auto inline-block" />
             </a>
             <span className="h-3 w-px bg-white/20" />
             <span className="transition-colors duration-300">Powered by Next.js</span>

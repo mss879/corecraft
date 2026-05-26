@@ -19,8 +19,9 @@ import {
 } from '@/components/ui/dialog';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { X, Eye } from 'lucide-react';
+import { X, Eye, Trash2, Trash } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { toast } from 'sonner';
 
 import { CareersTab } from './careers-tab';
 import { ResumeFormTab } from './resume-form-tab';
@@ -269,6 +270,56 @@ export default function AdminDashboardPage() {
       setLeads((prev) => [data as Lead, ...prev]);
       setNewLead({ name: '', company: '', email: '' });
       setIsAddLeadOpen(false);
+    }
+  }
+
+  async function deleteInquiry(id: string) {
+    if (!confirm('Are you sure you want to delete this website inquiry?')) return;
+    try {
+      const { error } = await supabase.from('inquiries').delete().eq('id', id);
+      if (error) throw error;
+      setInquiries((prev) => prev.filter((inq) => inq.id !== id));
+      setSelectedInquiryIds((prev) => {
+        const next = new Set(prev);
+        next.delete(id);
+        return next;
+      });
+      toast.success('Inquiry deleted successfully');
+    } catch (error: any) {
+      console.error('Error deleting inquiry:', error);
+      toast.error(error.message || 'Failed to delete inquiry');
+    }
+  }
+
+  async function deleteSelectedInquiries() {
+    if (!selectedCount) return;
+    if (!confirm(`Are you sure you want to delete the ${selectedCount} selected inquiries?`)) return;
+    try {
+      const idsToDelete = Array.from(selectedInquiryIds);
+      const { error } = await supabase.from('inquiries').delete().in('id', idsToDelete);
+      if (error) throw error;
+      setInquiries((prev) => prev.filter((inq) => !selectedInquiryIds.has(inq.id)));
+      setSelectedInquiryIds(new Set());
+      toast.success('Selected inquiries deleted successfully');
+    } catch (error: any) {
+      console.error('Error deleting selected inquiries:', error);
+      toast.error(error.message || 'Failed to delete selected inquiries');
+    }
+  }
+
+  async function deleteLead(id: string) {
+    if (!confirm('Are you sure you want to delete this lead?')) return;
+    try {
+      const { error } = await supabase.from('leads').delete().eq('id', id);
+      if (error) throw error;
+      setLeads((prev) => prev.filter((l) => l.id !== id));
+      if (viewingLead?.id === id) {
+        setViewingLead(null);
+      }
+      toast.success('Lead deleted successfully');
+    } catch (error: any) {
+      console.error('Error deleting lead:', error);
+      toast.error(error.message || 'Failed to delete lead');
     }
   }
 
@@ -565,6 +616,13 @@ export default function AdminDashboardPage() {
             >
               {movingToCrm ? 'Moving…' : 'Move to CRM'}
             </Button>
+            <Button
+              className="rounded-full border border-red-500/30 bg-red-500/10 px-4 py-2 text-xs font-semibold text-red-400 hover:bg-red-500/20 disabled:opacity-50"
+              disabled={selectedCount === 0}
+              onClick={deleteSelectedInquiries}
+            >
+              Delete Selected
+            </Button>
             {moveError && <span className="text-xs text-red-300">{moveError}</span>}
           </div>
           <div className="overflow-x-auto rounded-3xl border border-white/10 bg-black/40">
@@ -580,6 +638,7 @@ export default function AdminDashboardPage() {
                   <th className="px-4 py-3 text-left">Email</th>
                   <th className="px-4 py-3 text-left">Message</th>
                   <th className="px-4 py-3 text-left">Status</th>
+                  <th className="px-4 py-3 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -612,11 +671,21 @@ export default function AdminDashboardPage() {
                         <span className="text-xs text-white/50">Pending</span>
                       )}
                     </td>
+                    <td className="px-4 py-3 align-top text-right">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-white/40 hover:text-red-400"
+                        onClick={() => deleteInquiry(inq.id)}
+                      >
+                        <Trash className="h-4 w-4" />
+                      </Button>
+                    </td>
                   </tr>
                 ))}
                 {inquiries.length === 0 && (
                   <tr>
-                    <td colSpan={7} className="px-4 py-6 text-center text-white/50">
+                    <td colSpan={8} className="px-4 py-6 text-center text-white/50">
                       No inquiries yet.
                     </td>
                   </tr>
@@ -759,17 +828,30 @@ export default function AdminDashboardPage() {
                               Manual
                             </span>
                           )}
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-6 w-6 text-white/40 hover:text-white"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setViewingLead(lead);
-                            }}
-                          >
-                            <Eye className="h-3 w-3" />
-                          </Button>
+                          <div className="flex items-center gap-1">
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-6 w-6 text-white/40 hover:text-white"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setViewingLead(lead);
+                              }}
+                            >
+                              <Eye className="h-3 w-3" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-6 w-6 text-white/40 hover:text-red-400"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                deleteLead(lead.id);
+                              }}
+                            >
+                              <Trash2 className="h-3 w-3" />
+                            </Button>
+                          </div>
                         </div>
                         <div className="flex items-center justify-between">
                           <p className="mr-3 text-base font-semibold uppercase leading-tight text-white break-words">
@@ -803,134 +885,153 @@ export default function AdminDashboardPage() {
               </DialogHeader>
               
               {viewingLead && (
-                <ScrollArea className="max-h-[calc(90vh-120px)] pr-4">
-                  <div className="grid gap-6 py-4">
-                    {/* Basic Info */}
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                      <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#ff502e]">Contact Information</h4>
-                      <div className="grid gap-4 sm:grid-cols-2">
-                        <div>
-                          <label className="text-xs text-white/50">Name</label>
-                          <div className="text-sm">{viewingLead.name}</div>
-                        </div>
-                        <div>
-                          <label className="text-xs text-white/50">Email</label>
-                          <div className="text-sm">{viewingLead.email}</div>
-                        </div>
-                        <div>
-                          <label className="text-xs text-white/50">Phone</label>
-                          <div className="text-sm">{viewingLead.phone || '—'}</div>
-                        </div>
-                        <div>
-                          <label className="text-xs text-white/50">Company</label>
-                          <div className="text-sm">{viewingLead.company || '—'}</div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {(viewingLead.current_role || viewingLead.target_markets || viewingLead.target_roles || viewingLead.skills) ? (
-                      <>
-                        {/* Career Specific Sections */}
-                        <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                          <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#ff502e]">Current Status</h4>
-                          <div className="grid gap-4 sm:grid-cols-2">
-                            <div>
-                              <label className="text-xs text-white/50">Current Role</label>
-                              <div className="text-sm">{viewingLead.current_role || '—'}</div>
-                            </div>
-                            <div>
-                              <label className="text-xs text-white/50">Industry</label>
-                              <div className="text-sm">{viewingLead.current_industry || '—'}</div>
-                            </div>
+                <>
+                  <ScrollArea className="max-h-[calc(90vh-200px)] pr-4">
+                    <div className="grid gap-6 py-4">
+                      {/* Basic Info */}
+                      <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                        <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#ff502e]">Contact Information</h4>
+                        <div className="grid gap-4 sm:grid-cols-2">
+                          <div>
+                            <label className="text-xs text-white/50">Name</label>
+                            <div className="text-sm">{viewingLead.name}</div>
+                          </div>
+                          <div>
+                            <label className="text-xs text-white/50">Email</label>
+                            <div className="text-sm">{viewingLead.email}</div>
+                          </div>
+                          <div>
+                            <label className="text-xs text-white/50">Phone</label>
+                            <div className="text-sm">{viewingLead.phone || '—'}</div>
+                          </div>
+                          <div>
+                            <label className="text-xs text-white/50">Company</label>
+                            <div className="text-sm">{viewingLead.company || '—'}</div>
                           </div>
                         </div>
+                      </div>
 
-                        <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                          <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#ff502e]">Target Goals</h4>
-                          <div className="space-y-4">
-                            <div>
-                              <label className="text-xs text-white/50">Target Markets</label>
-                              <div className="text-sm whitespace-pre-wrap mt-1">{viewingLead.target_markets || '—'}</div>
-                            </div>
+                      {(viewingLead.current_role || viewingLead.target_markets || viewingLead.target_roles || viewingLead.skills) ? (
+                        <>
+                          {/* Career Specific Sections */}
+                          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                            <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#ff502e]">Current Status</h4>
                             <div className="grid gap-4 sm:grid-cols-2">
                               <div>
-                                <label className="text-xs text-white/50">Target Roles</label>
-                                <div className="text-sm mt-1">{viewingLead.target_roles || '—'}</div>
+                                <label className="text-xs text-white/50">Current Role</label>
+                                <div className="text-sm">{viewingLead.current_role || '—'}</div>
                               </div>
                               <div>
-                                <label className="text-xs text-white/50">Target Industries</label>
-                                <div className="text-sm mt-1">{viewingLead.target_industries || '—'}</div>
+                                <label className="text-xs text-white/50">Industry</label>
+                                <div className="text-sm">{viewingLead.current_industry || '—'}</div>
                               </div>
                             </div>
                           </div>
-                        </div>
 
-                        <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                          <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#ff502e]">Career Details</h4>
-                          <div className="space-y-4">
-                            <div>
-                              <label className="text-xs text-white/50">Objectives</label>
-                              <div className="text-sm whitespace-pre-wrap mt-1">{viewingLead.career_objectives || '—'}</div>
-                            </div>
-                            <div>
-                              <label className="text-xs text-white/50">Goals</label>
-                              <div className="text-sm whitespace-pre-wrap mt-1">{viewingLead.career_goals || '—'}</div>
-                            </div>
-                            <div>
-                              <label className="text-xs text-white/50">Skills</label>
-                              <div className="text-sm whitespace-pre-wrap mt-1">{viewingLead.skills || '—'}</div>
-                            </div>
-                            <div>
-                              <label className="text-xs text-white/50">Education</label>
-                              <div className="text-sm whitespace-pre-wrap mt-1">{viewingLead.education_certifications || '—'}</div>
+                          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                            <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#ff502e]">Target Goals</h4>
+                            <div className="space-y-4">
+                              <div>
+                                <label className="text-xs text-white/50">Target Markets</label>
+                                <div className="text-sm whitespace-pre-wrap mt-1">{viewingLead.target_markets || '—'}</div>
+                              </div>
+                              <div className="grid gap-4 sm:grid-cols-2">
+                                <div>
+                                  <label className="text-xs text-white/50">Target Roles</label>
+                                  <div className="text-sm mt-1">{viewingLead.target_roles || '—'}</div>
+                                </div>
+                                <div>
+                                  <label className="text-xs text-white/50">Target Industries</label>
+                                  <div className="text-sm mt-1">{viewingLead.target_industries || '—'}</div>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </>
-                    ) : null}
 
-                    {/* Additional Info / Message */}
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                      <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#ff502e]">
-                        {viewingLead.current_role ? 'Additional Information' : 'Message'}
-                      </h4>
-                      <div className="text-sm whitespace-pre-wrap">{viewingLead.message || '—'}</div>
-                    </div>
+                          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                            <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#ff502e]">Career Details</h4>
+                            <div className="space-y-4">
+                              <div>
+                                <label className="text-xs text-white/50">Objectives</label>
+                                <div className="text-sm whitespace-pre-wrap mt-1">{viewingLead.career_objectives || '—'}</div>
+                              </div>
+                              <div>
+                                <label className="text-xs text-white/50">Goals</label>
+                                <div className="text-sm whitespace-pre-wrap mt-1">{viewingLead.career_goals || '—'}</div>
+                              </div>
+                              <div>
+                                <label className="text-xs text-white/50">Skills</label>
+                                <div className="text-sm whitespace-pre-wrap mt-1">{viewingLead.skills || '—'}</div>
+                              </div>
+                              <div>
+                                <label className="text-xs text-white/50">Education</label>
+                                <div className="text-sm whitespace-pre-wrap mt-1">{viewingLead.education_certifications || '—'}</div>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      ) : null}
 
-                    {/* Service Interest */}
-                    {(viewingLead.service_interest || viewingLead.budget_range || viewingLead.linkedin_info_requested !== undefined) && (
+                      {/* Additional Info / Message */}
                       <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                        <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#ff502e]">Service Details</h4>
-                        <div className="grid gap-4 sm:grid-cols-2">
-                          {viewingLead.service_interest && (
-                            <div className="sm:col-span-2">
-                              <label className="text-xs text-white/50">Interested Services</label>
-                              <div className="text-sm mt-1">{viewingLead.service_interest}</div>
-                            </div>
-                          )}
-                          {viewingLead.budget_range && (
-                            <div>
-                              <label className="text-xs text-white/50">Budget Range</label>
-                              <div className="text-sm mt-1">{viewingLead.budget_range}</div>
-                            </div>
-                          )}
-                          {viewingLead.linkedin_info_requested !== undefined && (
-                            <div>
-                              <label className="text-xs text-white/50">LinkedIn Info Requested</label>
-                              <div className="text-sm mt-1">{viewingLead.linkedin_info_requested ? 'Yes' : 'No'}</div>
-                            </div>
-                          )}
-                          {viewingLead.referral_source && (
-                            <div>
-                              <label className="text-xs text-white/50">Source</label>
-                              <div className="text-sm mt-1">{viewingLead.referral_source}</div>
-                            </div>
-                          )}
-                        </div>
+                        <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#ff502e]">
+                          {viewingLead.current_role ? 'Additional Information' : 'Message'}
+                        </h4>
+                        <div className="text-sm whitespace-pre-wrap">{viewingLead.message || '—'}</div>
                       </div>
-                    )}
-                  </div>
-                </ScrollArea>
+
+                      {/* Service Interest */}
+                      {(viewingLead.service_interest || viewingLead.budget_range || viewingLead.linkedin_info_requested !== undefined) && (
+                        <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                          <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-[#ff502e]">Service Details</h4>
+                          <div className="grid gap-4 sm:grid-cols-2">
+                            {viewingLead.service_interest && (
+                              <div className="sm:col-span-2">
+                                <label className="text-xs text-white/50">Interested Services</label>
+                                <div className="text-sm mt-1">{viewingLead.service_interest}</div>
+                              </div>
+                            )}
+                            {viewingLead.budget_range && (
+                              <div>
+                                <label className="text-xs text-white/50">Budget Range</label>
+                                <div className="text-sm mt-1">{viewingLead.budget_range}</div>
+                              </div>
+                            )}
+                            {viewingLead.linkedin_info_requested !== undefined && (
+                              <div>
+                                <label className="text-xs text-white/50">LinkedIn Info Requested</label>
+                                <div className="text-sm mt-1">{viewingLead.linkedin_info_requested ? 'Yes' : 'No'}</div>
+                              </div>
+                            )}
+                            {viewingLead.referral_source && (
+                              <div>
+                                <label className="text-xs text-white/50">Source</label>
+                                <div className="text-sm mt-1">{viewingLead.referral_source}</div>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </ScrollArea>
+                  <DialogFooter className="mt-4 border-t border-white/10 pt-4 flex justify-between items-center">
+                    <Button
+                      variant="ghost"
+                      className="text-red-400 hover:bg-red-500/10 hover:text-red-300 mr-auto"
+                      onClick={() => deleteLead(viewingLead.id)}
+                    >
+                      <Trash2 className="mr-2 h-4 w-4" />
+                      Delete Lead
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="border-white/10 bg-transparent text-white hover:bg-white/10"
+                      onClick={() => setViewingLead(null)}
+                    >
+                      Close
+                    </Button>
+                  </DialogFooter>
+                </>
               )}
             </DialogContent>
           </Dialog>
